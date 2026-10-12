@@ -1,0 +1,31 @@
+# Maintainer: MRVIMA (VOIDVIMA) <thevoidofficialprivacy@gmail.com>
+# THE VOID GAMECHECK — a THE VOID project by THE VOID PROTOCOL.
+pkgname=the-void-gamecheck
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="How well does a game run on Linux? Native support, ProtonDB, Steam Deck and Lutris in one answer"
+arch=('any')
+url="https://github.com/MRVIMA/the-void-gamecheck"
+license=('MIT')
+depends=('python' 'pyside6' 'python-httpx' 'python-h2')
+makedepends=('python-build' 'python-installer' 'python-hatchling')
+optdepends=('steam: play the games' 'lutris: install scripts for non-Steam games')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+# Run `updpkgsums` after publishing the v$pkgver release.
+sha256sums=('SKIP')
+
+build() {
+  cd "$pkgname-$pkgver"
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 data/com.thevoid.GameCheck.desktop -t "$pkgdir/usr/share/applications"
+  for f in data/icons/hicolor/*/apps/*; do
+    install -Dm644 "$f" "$pkgdir/usr/share/icons/${f#data/icons/}"
+  done
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+}

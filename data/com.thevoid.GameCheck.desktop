@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.5
+Name=THE VOID GAMECHECK
+GenericName=Linux Game Compatibility
+Comment=See how well a game runs on Linux: native support, ProtonDB, Steam Deck and Lutris
+Exec=the-void-gamecheck
+Icon=com.thevoid.GameCheck
+Terminal=false
+StartupNotify=true
+StartupWMClass=the-void-gamecheck
+Categories=Utility;Qt;
+Keywords=linux;games;proton;protondb;steam;deck;lutris;compatibility;
+SingleMainWindow=true
